@@ -8,18 +8,21 @@
  */
 int main(int argc, char *argv[])
 {
-	if (argc != 2)
-		write(2, USAGE, sizeof(USAGE));
-	(void)argv;
-	stack_t * top = NULL;
+	/*stack_t * top = NULL;*/
 	stack_ins_t *front = NULL;
 	stack_ins_t *rear = NULL;
+	stack_ins_t *current = NULL;
 
 	FILE *fp;
 	char *buff = NULL;
 	size_t bytes = 1024;
 
-	fp = fopen(file, "r");
+	(void)argv;
+	if (argc != 2)
+		write(2, USAGE, sizeof(USAGE));
+
+
+	fp = fopen("opcodes.m", "r");
 	if (!fp)
 	{
 		/* print error, couldn't read file */
@@ -33,8 +36,13 @@ int main(int argc, char *argv[])
 			/* print error, couldn't malloc */
 		}
 		ins->opcode = buff;
-		
-		
+		push(&rear, &front, ins);
+	}
+	current = rear;
+	while (current != NULL)
+	{
+		printf("%s\n", current->ins->opcode);
+		current = current->next;
 	}
 
 	return (EXIT_SUCCESS);
