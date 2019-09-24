@@ -7,6 +7,16 @@
 
 #define USAGE "USAGE: monty file\n"
 
+void push(instruction_ins_t **rear, instruction_ins_t **front, instruction_t *node);
+void pop(instruction_ins_t **rear, **front);
+
+
+
+
+
+
+
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
