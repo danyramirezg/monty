@@ -41,13 +41,18 @@ int main(int argc, char *argv[])
 	free(buff);
 	return (EXIT_SUCCESS);
 }
-
+/**
+ * execute_opcode - execute the opcode found in the line
+ * @token: opcode
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
 void execute_opcode(char *token, stack_t **top, unsigned int line)
 {
 	int i, len;
 
-	instruction_t opcodes[] = 
-	{
+	instruction_t opcodes[] = {
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
@@ -71,7 +76,12 @@ void execute_opcode(char *token, stack_t **top, unsigned int line)
 	}
 	invalid_err(token, line);
 }
-
+/**
+ * push - pushes a new node to stack
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
 void push(stack_t **top, unsigned int line)
 {
 	stack_t *node = malloc(sizeof(stack_t));
@@ -94,10 +104,15 @@ void push(stack_t **top, unsigned int line)
 	*top = node;
 	(void)line;
 }
-
+/**
+ * pall - prints all elements of stack
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
 void pall(stack_t **top, unsigned int line)
 {
-	stack_t * current = *top;
+	stack_t *current = *top;
 
 	if (*top == NULL)
 		return;
@@ -109,7 +124,12 @@ void pall(stack_t **top, unsigned int line)
 	}
 	(void)line;
 }
-
+/**
+ * pint - prints element at top
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
 void pint(stack_t **top, unsigned int line)
 {
 	if (*top == NULL)
@@ -117,14 +137,27 @@ void pint(stack_t **top, unsigned int line)
 	printf("%d\n", (*top)->n);
 }
 
+/**
+ * pop - removes element at top
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
 void pop(stack_t **top, unsigned int line)
 {
 	stack_t *node = *top;
+
 	if (*top == NULL)
 		pop_err(line);
 	*top = (*top)->next;
 	free(node);
 }
+/**
+ * swap - swaps the elemnt at top with the second top
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
 void swap(stack_t **top, unsigned int line)
 {
 	stack_t *a, *b, *c;
@@ -142,7 +175,12 @@ void swap(stack_t **top, unsigned int line)
 	if (c)
 		c->prev = a;
 }
-
+/**
+ * nop - does nothing
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
 void nop(stack_t **top, unsigned int line)
 {
 	(void)top;
