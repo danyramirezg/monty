@@ -4,8 +4,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define USAGE "USAGE: monty file\n"
+
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -37,22 +39,25 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/**
- * struct stack_ins - doubly linked list representation of a stack (or queue)
- * @ins: instruction
- * @prev: points to the previous element of the stack (or queue)
- * @next: points to the next element of the stack (or queue)
- *
- * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO Holberton project
- */
-typedef struct stack_ins
-{
-        instruction_t *ins;
-        struct stack_ins *prev;
-        struct stack_ins *next;
-} stack_ins_t;
+void queue_push(stack_t **rear, stack_t **front, int n);
+void queue_pop(stack_t **rear, stack_t **front);
 
-void push(stack_ins_t **rear, stack_ins_t **front, instruction_t *node);
-void pop(stack_ins_t **rear, stack_ins_t **front);
+/* opcode execution */
+void execute_opcode(char *token, stack_t **top, unsigned int line);
+void push(stack_t **top, unsigned int line);
+void pall(stack_t **top, unsigned int line);
+void pint(stack_t **top, unsigned int line);
+void pop(stack_t **top, unsigned int line);
+void swap(stack_t **top, unsigned int line);
+void add(stack_t **top, unsigned int line);
+void nop(stack_t **top, unsigned int line);
+/* error handler functions */
+void usage_err();
+void open_err(char *file);
+void invalid_err(char *opcode, unsigned int line);
+void malloc_err();
+void pint_err(unsigned int);
+void pop_err(unsigned int);
+void swap_err(unsigned int);
+void add_err(unsigned int);
 #endif

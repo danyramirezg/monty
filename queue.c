@@ -1,14 +1,14 @@
 #include "monty.h"
 
-void push(stack_ins_t **rear, stack_ins_t **front, instruction_t *node)
+void queue_push(stack_t **rear, stack_t **front, int n)
 {
-	stack_ins_t *new = malloc(sizeof(stack_ins_t));
+	stack_t *new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
 		/* malloc failed */
 		exit(98);
 	}
-	new->ins = node;
+	new->n = n;
 	new->prev = NULL;
 	new->next = NULL;
 
@@ -23,9 +23,9 @@ void push(stack_ins_t **rear, stack_ins_t **front, instruction_t *node)
 	new->next = *rear;
 	*rear = new;
 }
-void pop(stack_ins_t **rear, stack_ins_t **front)
+void queue_pop(stack_t **rear, stack_t **front)
 {
-	stack_ins_t *delete = *front;
+	stack_t *delete = *front;
 	
 	if (delete->prev == NULL)
 	{
