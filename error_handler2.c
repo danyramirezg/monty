@@ -1,6 +1,20 @@
 #include "monty.h"
 
 /**
+ * push_err - Handle error if there is not an integer or not argument given
+ * @line: The function´s parameter
+ * Return: Void
+ */
+
+void push_err(unsigned int line)
+{
+	fprintf(stderr, "L%u: usage: push integer\n", line)
+	exit(EXIT_FAILURE)
+}
+
+
+
+/**
  * pop_err - Handle error for deletion of an empty stack
  * @line: The function´s parameter
  * Return: void
