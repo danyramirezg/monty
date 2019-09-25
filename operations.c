@@ -37,7 +37,7 @@ void sub(stack_t **top, unsigned int line)
 	pop(top, line);
 }
 
-/*
+/**
 * div1 - Divides the seccond top element of the stack by the top element
 * @top: Double pointer to the structure
 * @line: The line to be executed
@@ -59,6 +59,13 @@ void div1(stack_t **top, unsigned int line)
 	pop(top, line);
 }
 
+/**
+ * mul - multiplies the second top element of the stack with the top element
+ * @top: Double pointer to the structure
+ * @line: The line to be executed
+ * Return: void
+ */
+
 void mul(stack_t **top, unsigned int line)
 {
 	stack_t *new_top;
@@ -70,6 +77,14 @@ void mul(stack_t **top, unsigned int line)
 	new_top->n *= (*top)->n;
 	pop(top, line);
 }
+
+/**
+ * mod - computes the rest of the division of the second by the top element
+ * @top: Double pointer to the structure
+ * @line: The line to be executed
+ * Return: void
+ */
+
 void mod(stack_t **top, unsigned int line)
 {
 	stack_t *new_top;
