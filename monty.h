@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #define USAGE "USAGE: monty file\n"
-
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -39,6 +39,7 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+int is_a_number(char *s);
 void queue_push(stack_t **rear, stack_t **front, int n);
 void queue_pop(stack_t **rear, stack_t **front);
 
@@ -56,6 +57,7 @@ void div1(stack_t **top, unsigned int line);
 void mul(stack_t **top, unsigned int line);
 void mod(stack_t **top, unsigned int line);
 /* error handler functions */
+void push_err(unsigned int);
 void usage_err(void);
 void open_err(char *file);
 void invalid_err(char *opcode, unsigned int line);

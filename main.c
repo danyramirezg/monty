@@ -8,7 +8,7 @@
  */
 int main(int argc, char *argv[])
 {
-	stack_t *top = NULL;
+	stack_t *top = NULL, *tmp = NULL;
 	FILE *fp;
 	char *buff = NULL, *token1 = NULL, *token2 = NULL;
 	size_t bytes = 1024;
@@ -16,26 +16,32 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		usage_err();
-	fp = fopen("opcodes.m", "r");
+	fp = fopen(argv[1], "r");
 	if (!fp)
 		open_err(argv[1]);
-
 	while (getline(&buff, &bytes, fp) != EOF)
 	{
-		int len = strlen(buff);
-
-		if (len == 1)
-			continue;
-		buff[strlen(buff) - 1] = '\0';
-		token1 = strtok(buff, " ");
-		token2 = strtok(NULL, " ");
-		execute_opcode(token1, &top, line_count);
-		/* hardcode push value */
-		if (strcmp(token1, "push") == 0 && token2 != NULL)
+		token1 = strtok(buff, " \n");
+		token2 = strtok(NULL, " \n");
+		if (!token1)
 		{
+			line_count++;
+			continue;
+		}
+		execute_opcode(token1, &top, line_count);
+		if (strcmp(token1, "push") == 0)
+		{
+			if (token2 == NULL || is_a_number(token2) == -1)
+				push_err(line_count);
 			top->n = atoi(token2);
 		}
 		line_count++;
+	}
+	while (top != NULL)
+	{
+		tmp = top;
+		top = top->next;
+		free(tmp);
 	}
 	fclose(fp);
 	free(buff);
@@ -75,6 +81,27 @@ void execute_opcode(char *token, stack_t **top, unsigned int line)
 		}
 	}
 	invalid_err(token, line);
+}
+
+/**
+ * is_a_number - test if a string is a number
+ * @s: string
+ * Return: -1 if not number, 1 otherwise
+ */
+int is_a_number(char *s)
+{
+	int i = 0;
+
+	if (!s)
+		return (-1);
+
+	while (s[i])
+	{
+		if (s[i] != 45 && isdigit(s[i]) == 0)
+			return (-1);
+		i++;
+	}
+	return (1);
 }
 /**
  * nop - does nothing
