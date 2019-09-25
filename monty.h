@@ -20,9 +20,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -35,8 +35,8 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 void queue_push(stack_t **rear, stack_t **front, int n);
@@ -56,10 +56,10 @@ void div1(stack_t **top, unsigned int line);
 void mul(stack_t **top, unsigned int line);
 void mod(stack_t **top, unsigned int line);
 /* error handler functions */
-void usage_err();
+void usage_err(void);
 void open_err(char *file);
 void invalid_err(char *opcode, unsigned int line);
-void malloc_err();
+void malloc_err(void);
 void pint_err(unsigned int);
 void pop_err(unsigned int);
 void swap_err(unsigned int);
