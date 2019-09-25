@@ -16,13 +16,16 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		usage_err();
-
-	fp = fopen(argv[1], "r");
+	fp = fopen("opcodes.m", "r");
 	if (!fp)
 		open_err(argv[1]);
 
 	while (getline(&buff, &bytes, fp) != EOF)
 	{
+		int len = strlen(buff);
+
+		if (len == 1)
+			continue;
 		buff[strlen(buff) - 1] = '\0';
 		token1 = strtok(buff, " ");
 		token2 = strtok(NULL, " ");
@@ -35,6 +38,7 @@ int main(int argc, char *argv[])
 		line_count++;
 	}
 	fclose(fp);
+	free(buff);
 	return (EXIT_SUCCESS);
 }
 
@@ -52,7 +56,7 @@ void execute_opcode(char *token, stack_t **top, unsigned int line)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
-		{"div", div},
+		{"div", div1},
 		{"mul", mul},
 		{"mod", mod}
 	};
@@ -165,16 +169,46 @@ void sub(stack_t **top, unsigned int line)
 	new_top->n -= (*top)->n;
 	pop(top, line);
 }
-void div(stack_t **top, unsigned int line)
+void div1(stack_t **top, unsigned int line)
 {
+	stack_t *new_top;
 	
+	if (*top == NULL || (*top)->next == NULL) 
+		div_err1(line);	
+	
+	if ((*top)->n == 0)
+		div_err2(line);
+
+	
+	new_top = (*top)->next;
+	new_top->n = (new_top->n) / (*top)->n;
+	pop(top, line);	
 }
 
 void mul(stack_t **top, unsigned int line)
 {
+	stack_t *new_top;
+	
+	if (*top == NULL || (*top)->next == NULL)
+		mul_err(line);
+
+	new_top = (*top)->next;
+	new_top->n *= (*top)->n;
+	pop(top, line);
 	
 }
 void mod(stack_t **top, unsigned int line)
 {
+	stack_t *new_top;
 	
+	if (*top == NULL || (*top)->next ==  NULL)
+		mod_err(line);
+	
+	if ((*top)->n == 0)
+		div_err2(line);
+
+	new_top = (*top)->next;
+	new_top->n = (new_top->n) % (*top)->n;
+	pop(top, line);
+		
 }
