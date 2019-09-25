@@ -8,10 +8,9 @@
 
 void push_err(unsigned int line)
 {
-	fprintf(stderr, "L%u: usage: push integer\n", line)
-	exit(EXIT_FAILURE)
+	fprintf(stderr, "L%u: usage: push integer\n", line);
+	exit(EXIT_FAILURE);
 }
-
 
 
 /**
