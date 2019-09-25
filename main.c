@@ -50,7 +50,11 @@ void execute_opcode(char *token, stack_t **top, unsigned int line)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
-		{"nop", nop}
+		{"nop", nop},
+		{"sub", sub},
+		{"div", div},
+		{"mul", mul},
+		{"mod", mod}
 	};
 	len = (int)(sizeof(opcodes) / sizeof(instruction_t));
 	for (i = 0; i < len; i++)
@@ -149,4 +153,28 @@ void nop(stack_t **top, unsigned int line)
 {
 	(void)top;
 	(void)line;
+}
+void sub(stack_t **top, unsigned int line)
+{
+	stack_t *new_top;
+
+	if (*top == NULL || (*top)->next == NULL)
+		sub_err(line);
+
+	new_top = (*top)->next;
+	new_top->n -= (*top)->n;
+	pop(top, line);
+}
+void div(stack_t **top, unsigned int line)
+{
+	
+}
+
+void mul(stack_t **top, unsigned int line)
+{
+	
+}
+void mod(stack_t **top, unsigned int line)
+{
+	
 }
