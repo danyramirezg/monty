@@ -1,4 +1,4 @@
-#include "monty.h"
+[2;2Rude "monty.h"
 
 /**
  * add - Adds the top two elements of the stack
@@ -49,7 +49,7 @@ void div1(stack_t **top, unsigned int line)
 	stack_t *new_top;
 
 	if (*top == NULL || (*top)->next == NULL)
-	div_err1(line);
+		div_err1(line);
 
 	if ((*top)->n == 0)
 		div_err2(line);
