@@ -70,7 +70,8 @@ void execute_opcode(char *token, stack_t **top, unsigned int line)
 		{"div", div1},
 		{"mul", mul},
 		{"mod", mod},
-		{"pchar", pchar}
+		{"pchar", pchar},
+		{"pstr", pstr}
 	};
 	len = (int)(sizeof(opcodes) / sizeof(instruction_t));
 	for (i = 0; i < len; i++)

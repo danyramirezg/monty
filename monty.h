@@ -57,6 +57,7 @@ void div1(stack_t **top, unsigned int line);
 void mul(stack_t **top, unsigned int line);
 void mod(stack_t **top, unsigned int line);
 void pchar(stack_t **top, unsigned int line);
+void pstr(stack_t **top, unsigned int line);
 /* error handler functions */
 void push_err(unsigned int);
 void usage_err(void);

@@ -31,3 +31,31 @@ void pchar(stack_t **top, unsigned int line)
 	putchar(ascii);
 	putchar('\n');
 }
+/**
+ * pstr - prints the string starting at the top of the stack
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
+void pstr(stack_t **top, unsigned int line)
+{
+	stack_t *current;
+
+	(void)line;
+	if (*top == NULL)
+	{
+		putchar('\n');
+		return;
+	}
+	current = *top;
+	while (current)
+	{
+		int ascii = current->n;
+
+		if (ascii <= 0 || ascii > 127)
+			break;
+		putchar(ascii);
+		current = current->next;
+	}
+	putchar('\n');
+}
