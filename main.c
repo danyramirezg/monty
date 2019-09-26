@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	{
 		token1 = strtok(buff, " \n");
 		token2 = strtok(NULL, " \n");
-		if (!token1)
+		if (!token1 || token1[0] == '#')
 		{
 			line_count++;
 			continue;
