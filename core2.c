@@ -92,6 +92,17 @@ void rotl(stack_t **top, unsigned int line)
  */
 void rotr(stack_t **top, unsigned int line)
 {
-	(void)top;
+	stack_t *last;
+
 	(void)line;
+	if (*top == NULL || (*top != NULL && (*top)->next == NULL))
+		return;
+	last = *top;
+	while (last->next)
+		last = last->next;
+	last->prev->next = NULL;
+	last->prev = NULL;
+	last->next = *top;
+	(*top)->prev = last;
+	*top = last;
 }
