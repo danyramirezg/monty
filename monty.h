@@ -56,6 +56,7 @@ void sub(stack_t **top, unsigned int line);
 void div1(stack_t **top, unsigned int line);
 void mul(stack_t **top, unsigned int line);
 void mod(stack_t **top, unsigned int line);
+void pchar(stack_t **top, unsigned int line);
 /* error handler functions */
 void push_err(unsigned int);
 void usage_err(void);
@@ -71,4 +72,6 @@ void div_err1(unsigned int);
 void div_err2(unsigned int);
 void mul_err(unsigned int);
 void mod_err(unsigned int);
+void pchar_err1(unsigned int);
+void pchar_err2(unsigned int);
 #endif

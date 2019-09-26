@@ -69,7 +69,8 @@ void execute_opcode(char *token, stack_t **top, unsigned int line)
 		{"sub", sub},
 		{"div", div1},
 		{"mul", mul},
-		{"mod", mod}
+		{"mod", mod},
+		{"pchar", pchar}
 	};
 	len = (int)(sizeof(opcodes) / sizeof(instruction_t));
 	for (i = 0; i < len; i++)
@@ -102,15 +103,4 @@ int is_a_number(char *s)
 		i++;
 	}
 	return (1);
-}
-/**
- * nop - does nothing
- * @top: stack
- * @line: line of the instruction
- * Return: void
- */
-void nop(stack_t **top, unsigned int line)
-{
-	(void)top;
-	(void)line;
 }
