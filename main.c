@@ -8,12 +8,13 @@
  */
 int main(int argc, char *argv[])
 {
-	stack_t *top = NULL, *tmp = NULL;
+	stack_t *top = NULL, *current = NULL;
 	FILE *fp;
 	char *buff = NULL, *token1 = NULL, *token2 = NULL;
 	size_t bytes = 1024;
 	unsigned int line_count = 1;
 
+	is_stack = 1;
 	if (argc != 2)
 		usage_err();
 	fp = fopen(argv[1], "r");
@@ -33,18 +34,19 @@ int main(int argc, char *argv[])
 		{
 			if (token2 == NULL || is_a_number(token2) == -1)
 				push_err(line_count);
-			top->n = atoi(token2);
+			if (is_stack == 1)
+				top->n = atoi(token2);
+			else
+			{
+				current = top;
+				while (current->next)
+					current = current->next;
+				current->n = atoi(token2);
+			}
 		}
 		line_count++;
 	}
-	while (top != NULL)
-	{
-		tmp = top;
-		top = top->next;
-		free(tmp);
-	}
-	fclose(fp);
-	free(buff);
+	free_all(&top, buff, fp);
 	return (EXIT_SUCCESS);
 }
 /**
@@ -73,7 +75,9 @@ void execute_opcode(char *token, stack_t **top, unsigned int line)
 		{"pchar", pchar},
 		{"pstr", pstr},
 		{"rotl", rotl},
-		{"rotr", rotr}
+		{"rotr", rotr},
+		{"stack", stack},
+		{"queue", queue}
 	};
 	len = (int)(sizeof(opcodes) / sizeof(instruction_t));
 	for (i = 0; i < len; i++)
@@ -106,4 +110,24 @@ int is_a_number(char *s)
 		i++;
 	}
 	return (1);
+}
+/**
+ * free_all - frees and close files
+ * @top: top of stack
+ * @buff: string buffer
+ * @fp: file descriptor
+ * Return: void
+ */
+void free_all(stack_t **top, char *buff, FILE *fp)
+{
+	stack_t *tmp = NULL;
+
+	while (*top != NULL)
+	{
+		tmp = *top;
+		*top = (*top)->next;
+		free(tmp);
+	}
+	free(buff);
+	fclose(fp);
 }

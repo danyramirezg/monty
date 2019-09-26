@@ -9,6 +9,8 @@
 
 #define USAGE "USAGE: monty file\n"
 
+/* 1 stack, 0 queue */
+extern int is_stack;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -40,8 +42,12 @@ typedef struct instruction_s
 } instruction_t;
 
 int is_a_number(char *s);
-void queue_push(stack_t **rear, stack_t **front, int n);
-void queue_pop(stack_t **rear, stack_t **front);
+void free_all(stack_t **top, char *buff, FILE *fp);
+
+void queue_push(stack_t **front);
+void queue_pop(stack_t **front, unsigned int line);
+void stack_push(stack_t **top);
+void stack_pop(stack_t **top, unsigned int line);
 
 /* opcode execution */
 void execute_opcode(char *token, stack_t **top, unsigned int line);
@@ -79,4 +85,5 @@ void mul_err(unsigned int);
 void mod_err(unsigned int);
 void pchar_err1(unsigned int);
 void pchar_err2(unsigned int);
+int is_stack;
 #endif

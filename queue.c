@@ -2,54 +2,46 @@
 
 /**
 * queue_push - Insertion of an element
-* @rear: Entry point
-* @front: Exit point
-* @n: integer
+* @front: front of queue
 * Return: void
 */
-void queue_push(stack_t **rear, stack_t **front, int n)
+void queue_push(stack_t **front)
 {
 	stack_t *new = malloc(sizeof(stack_t));
+	stack_t *last;
 
 	if (new == NULL)
-	{
-		/* malloc failed */
-		exit(98);
-	}
-	new->n = n;
+		malloc_err();
+	new->n = 0;
 	new->prev = NULL;
 	new->next = NULL;
 
-
-	if (*rear == NULL)
+	if (*front == NULL)
 	{
 		*front = new;
-		*rear = new;
 		return;
 	}
-	(*rear)->prev = new;
-	new->next = *rear;
-	*rear = new;
-	}
+	last = *front;
+	while (last->next)
+		last = last->next;
+	last->next = new;
+	new->prev = last;
+	new->next = NULL;
+}
 /**
-* queue_pop - Deletion of an element
-* @rear: Entry point
-* @front: Exit point
-* Return: void
+ * queue_pop - Deletion of an element
+ * @front: front of queue
+ * @line: line number
+ * Return: void
 */
-
-void queue_pop(stack_t **rear, stack_t **front)
+void queue_pop(stack_t **front, unsigned int line)
 {
-	stack_t *delete = *front;
+	stack_t *new_front;
 
-	if (delete->prev == NULL)
-	{
-		free(delete);
-		*front = NULL;
-		*rear = NULL;
-	return;
-	}
-	delete->prev->next = NULL;
-	*front = delete->prev;
-	free(delete);
+	if (*front == NULL)
+		pop_err(line);
+
+	new_front = (*front)->next;
+	free(*front);
+	*front = new_front;
 }

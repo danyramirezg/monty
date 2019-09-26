@@ -31,12 +31,10 @@ void swap(stack_t **top, unsigned int line)
  */
 void pop(stack_t **top, unsigned int line)
 {
-	stack_t *node = *top;
-
-	if (*top == NULL)
-		pop_err(line);
-	*top = (*top)->next;
-	free(node);
+	if (is_stack == 1)
+		stack_pop(top, line);
+	else
+		queue_pop(top, line);
 }
 /**
  * pint - prints element at top
@@ -78,23 +76,9 @@ void pall(stack_t **top, unsigned int line)
  */
 void push(stack_t **top, unsigned int line)
 {
-	stack_t *node = malloc(sizeof(stack_t));
-
-	if (node == NULL)
-	{
-		malloc_err();
-	}
-	node->n = 0;
-	node->prev = NULL;
-
-	if (*top == NULL)
-	{
-		node->next = NULL;
-		*top = node;
-		return;
-	}
-	node->next = (*top);
-	(*top)->prev = node;
-	*top = node;
+	if (is_stack == 1)
+		stack_push(top);
+	else
+		queue_push(top);
 	(void)line;
 }
