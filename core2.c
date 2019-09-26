@@ -59,3 +59,39 @@ void pstr(stack_t **top, unsigned int line)
 	}
 	putchar('\n');
 }
+/**
+ * rotl - rotates the stack to the top
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
+void rotl(stack_t **top, unsigned int line)
+{
+	stack_t *new_top, *first, *last;
+
+	(void)line;
+	if (*top == NULL || (*top != NULL && (*top)->next == NULL))
+		return;
+
+	first = *top;
+	last = *top;
+	while (last->next)
+		last = last->next;
+	new_top = (*top)->next;
+	first->next = NULL;
+	first->prev = last;
+	last->next = first;
+	new_top->prev = NULL;
+	*top = new_top;
+}
+/**
+ * rotr - rotates the stack to the bottom
+ * @top: stack
+ * @line: line of the instruction
+ * Return: void
+ */
+void rotr(stack_t **top, unsigned int line)
+{
+	(void)top;
+	(void)line;
+}

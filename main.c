@@ -71,7 +71,9 @@ void execute_opcode(char *token, stack_t **top, unsigned int line)
 		{"mul", mul},
 		{"mod", mod},
 		{"pchar", pchar},
-		{"pstr", pstr}
+		{"pstr", pstr},
+		{"rotl", rotl},
+		{"rotr", rotr}
 	};
 	len = (int)(sizeof(opcodes) / sizeof(instruction_t));
 	for (i = 0; i < len; i++)
